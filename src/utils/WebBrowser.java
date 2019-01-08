@@ -45,9 +45,9 @@ public class WebBrowser {
 		new WebDriverWait(getInstance().webDriver, 30L).until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
 		
 		try {
-			Thread.sleep(5000);
+			Thread.sleep(6000);
 		} catch(InterruptedException e) {
-			throw new InternalErrorException("Erro ao aguardar o load da página");
+			throw new InternalErrorException("Erro ao aguardar o load da pï¿½gina");
 		}
 	}
 	

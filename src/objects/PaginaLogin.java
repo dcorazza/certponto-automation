@@ -17,6 +17,7 @@ public class PaginaLogin {
 	}
 	
 	public void preencherCPF(String cpf) {
+		WebBrowser.waitPageLoad();
 		WebBrowser.findElement(By.xpath("//input[@placeholder='CPF']")).sendKeys(cpf);
 	}
 	
