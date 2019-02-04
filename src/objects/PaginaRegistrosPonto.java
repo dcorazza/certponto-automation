@@ -12,7 +12,6 @@ import utils.WebBrowser;
 public class PaginaRegistrosPonto {
 	
 	public PaginaRegistrosPonto() {
-		WebBrowser.waitForElement(By.name("totalRegistryPage"));
 		WebBrowser.waitPageLoad();
 		WebBrowser.switchToTab(1);
 	}
@@ -22,16 +21,20 @@ public class PaginaRegistrosPonto {
 		WebBrowser.scrollDown();
 		
 		Select comboQtdRegistros = new Select(WebBrowser.findElement(By.name("totalRegistryPage")));
-		comboQtdRegistros.selectByIndex(2);
+		comboQtdRegistros.selectByIndex(3);
 	}
 	
 	public void preencherDiasCom8Horas(String ano, String mes) {
 		YearMonth anoMes = YearMonth.of(Integer.parseInt(ano), Integer.parseInt(mes));
 		
 		for(int i = 1; i <= anoMes.lengthOfMonth(); i++) {
-			WebElement celulaDia = WebBrowser.findElement(By.xpath("//div[@class='k-grid-content k-auto-scrollable']/table/tbody/tr[" + i + "]/td[8]"));
+			WebElement celulaDia =
+					WebBrowser.findElement(By.xpath("//div[@class='k-grid-content k-auto-scrollable']/table/tbody/tr[" + i + "]/td[8]"));
+
+			WebElement celulaHorasEsperadas =
+					WebBrowser.findElementNoWait(By.xpath("//div[@class='k-grid-content k-auto-scrollable']/table/tbody/tr[" + i + "]/td[14]"));
 			
-			if(!"Sábado".equals(celulaDia.getText()) && !"Domingo".equals(celulaDia.getText())) {
+			if(!"00:00".equals(celulaHorasEsperadas.getText())) {
 				celulaDia.click();
 				WebBrowser.waitPageLoad();
 				lancarHorarioEntrada();

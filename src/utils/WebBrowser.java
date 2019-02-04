@@ -45,7 +45,7 @@ public class WebBrowser {
 		new WebDriverWait(getInstance().webDriver, 30L).until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
 		
 		try {
-			Thread.sleep(6000);
+			Thread.sleep(7000);
 		} catch(InterruptedException e) {
 			throw new InternalErrorException("Erro ao aguardar o load da p�gina");
 		}
@@ -68,6 +68,10 @@ public class WebBrowser {
 	
 	public static WebElement findElement(By by) {
 		waitForElement(by);
+		return getInstance().webDriver.findElement(by);
+	}
+
+	public static WebElement findElementNoWait(By by) {
 		return getInstance().webDriver.findElement(by);
 	}
 	
