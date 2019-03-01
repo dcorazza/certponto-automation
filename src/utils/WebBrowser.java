@@ -58,7 +58,19 @@ public class WebBrowser {
 	}
 	
 	public static void waitForElement(By by) {
+		expectPresenceOfElementLocated(by);
+		expectVisibiltyOfElementLocated(by);
+	}
+
+	public static void waitForElementWithoutVisibility(By by) {
+		expectPresenceOfElementLocated(by);
+	}
+
+	private static void expectPresenceOfElementLocated(By by) {
 		new WebDriverWait(getInstance().webDriver, 30L).until(ExpectedConditions.presenceOfElementLocated(by));
+	}
+
+	private static void expectVisibiltyOfElementLocated(By by) {
 		new WebDriverWait(getInstance().webDriver, 30L).until(ExpectedConditions.visibilityOfElementLocated(by));
 	}
 	
@@ -80,9 +92,14 @@ public class WebBrowser {
 		new WebDriverWait(getInstance().webDriver, 30L).until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(parentElement, childBy));
 		return parentElement.findElement(childBy);
 	}
-	
+
 	public static List<WebElement> findElements(By by) {
 		waitForElement(by);
+		return getInstance().webDriver.findElements(by);
+	}
+
+	public static List<WebElement> findElementsWithoutVisibility(By by) {
+		waitForElementWithoutVisibility(by);
 		return getInstance().webDriver.findElements(by);
 	}
 	

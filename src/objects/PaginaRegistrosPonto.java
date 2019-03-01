@@ -32,9 +32,24 @@ public class PaginaRegistrosPonto {
 					WebBrowser.findElement(By.xpath("//div[@class='k-grid-content k-auto-scrollable']/table/tbody/tr[" + i + "]/td[8]"));
 
 			WebElement celulaHorasEsperadas =
-					WebBrowser.findElementNoWait(By.xpath("//div[@class='k-grid-content k-auto-scrollable']/table/tbody/tr[" + i + "]/td[14]"));
-			
-			if(!"00:00".equals(celulaHorasEsperadas.getText())) {
+					WebBrowser.findElementNoWait(By.xpath("//div[@class='k-grid-content k-auto-scrollable']/table/tbody/tr[" + i + "]/td[12]"));
+
+			WebElement celulaHorasRealizadas =
+					WebBrowser.findElementNoWait(By.xpath("//div[@class='k-grid-content k-auto-scrollable']/table/tbody/tr[" + i + "]/td[13]"));
+
+			/*
+			Após inserir a primeira linha, a tabela cria duas colunas intermediárias de "Entrada 1" e "Saída 1", então é necessário buscar em duas colunas
+			posteriores
+			 */
+			if("----".equals(celulaHorasEsperadas.getText())) {
+				celulaHorasEsperadas =
+						WebBrowser.findElementNoWait(By.xpath("//div[@class='k-grid-content k-auto-scrollable']/table/tbody/tr[" + i + "]/td[14]"));
+
+				celulaHorasRealizadas =
+						WebBrowser.findElementNoWait(By.xpath("//div[@class='k-grid-content k-auto-scrollable']/table/tbody/tr[" + i + "]/td[15]"));
+			}
+
+			if(!"00:00".equals(celulaHorasEsperadas.getText()) && "00:00".equals(celulaHorasRealizadas.getText())) {
 				celulaDia.click();
 				WebBrowser.waitPageLoad();
 				lancarHorarioEntrada();
@@ -48,23 +63,48 @@ public class PaginaRegistrosPonto {
 	}
 	
 	private void lancarHorarioEntrada() {
-		WebBrowser.clickElement(By.xpath("//form[@name='frmInsertDisregard']/input[@class='pull-right']"));
-		WebBrowser.findElement(By.xpath("//table[@class='table table-header-color-none']/tbody/tr[1]/td[3]/input")).sendKeys("09:00");
-		
-		Select comboJustificativa = new Select(WebBrowser.findElement(By.xpath("//table[@class='table table-header-color-none']/tbody/tr[1]/td[5]/select")));
+		/*
+		Seleciona sempre uma lista de elementos pois o CERTPONTO possui dois elementos mas o primeiro está embaixo de uma DIV escondida
+		 */
+		List<WebElement> elementosInserirLinha =
+				WebBrowser.findElementsWithoutVisibility(By.xpath("//form[@name='frmInsertDisregard']/input[@class='pull-right']"));
+		elementosInserirLinha.get(1).click();
+
+		List<WebElement> elementosHora =
+				WebBrowser.findElementsWithoutVisibility(By.xpath("//table[@class='table table-header-color-none']/tbody/tr[1]/td[3]/input"));
+		elementosHora.get(1).sendKeys("09:00");
+
+		List<WebElement> elementosCombo =
+				WebBrowser.findElementsWithoutVisibility(By.xpath("//table[@class='table table-header-color-none']/tbody/tr[1]/td[5]/select"));
+		Select comboJustificativa = new Select(elementosCombo.get(1));
 		comboJustificativa.selectByVisibleText("Problemas Relogio");
-		
-		WebBrowser.clickElement(By.xpath("//table[@class='table table-header-color-none']/tbody/tr[1]/td[7]/input[@title='Salvar']"));
+
+		List<WebElement> elementosSalvar =
+				WebBrowser.findElementsWithoutVisibility(By.xpath("//table[@class='table table-header-color-none']/tbody/tr[1]/td[7]/input[@title='Salvar']"));
+		elementosSalvar.get(1).click();
 	}
 	
 	private void lancarHorarioSaida() {
-		WebBrowser.clickElement(By.xpath("//form[@name='frmInsertDisregard']/input[@class='pull-right']"));
-		WebBrowser.findElement(By.xpath("//table[@class='table table-header-color-none']/tbody/tr[2]/td[3]/input")).sendKeys("18:00");
-		
-		Select comboJustificativa = new Select(WebBrowser.findElement(By.xpath("//table[@class='table table-header-color-none']/tbody/tr[2]/td[5]/select")));
+		/*
+		Seleciona sempre uma lista de elementos pois o CERTPONTO possui dois elementos mas o primeiro está embaixo de uma DIV escondida
+		 */
+		List<WebElement> elementosInserirLinha =
+				WebBrowser.findElementsWithoutVisibility(By.xpath("//form[@name='frmInsertDisregard']/input[@class='pull-right']"));
+		elementosInserirLinha.get(1).click();
+
+		List<WebElement> elementosHora =
+				WebBrowser.findElementsWithoutVisibility(By.xpath("//table[@class='table table-header-color-none']/tbody/tr[2]/td[3]/input"));
+		elementosHora.get(1).sendKeys("18:00");
+
+		List<WebElement> elementosCombo =
+				WebBrowser.findElementsWithoutVisibility(By.xpath("//table[@class='table table-header-color-none']/tbody/tr[2]/td[5]/select"));
+
+		Select comboJustificativa = new Select(elementosCombo.get(1));
 		comboJustificativa.selectByVisibleText("Problemas Relogio");
-		
-		WebBrowser.clickElement(By.xpath("//table[@class='table table-header-color-none']/tbody/tr[2]/td[7]/input[@title='Salvar']"));
+
+		List<WebElement> elementosSalvar =
+				WebBrowser.findElementsWithoutVisibility(By.xpath("//table[@class='table table-header-color-none']/tbody/tr[2]/td[7]/input[@title='Salvar']"));
+		elementosSalvar.get(1).click();
 	}
 	
 	private void fecharJanelaDia() {

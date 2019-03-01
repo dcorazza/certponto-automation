@@ -11,16 +11,16 @@ import utils.WebBrowser;
 
 public class LancamentoPonto {
 
-	//CPF sem máscara, apenas números
+	//CPF com mÃ¡scara
 	public static final String CPF = "";
-	
+
 	//Senha de acesso a ferramenta
 	public static final String SENHA = "";
-	
-	//Ano referente ao qual se deseja realizar os lançamentos. Formato yyyy
+
+	//Ano referente ao qual se deseja realizar os lanÃ§amentos. Formato yyyy
 	public static final String ANO = "";
-	
-	//Mês referente ao qual se deseja realizar os lançamentos. Formato MM
+
+	//MÃªs referente ao qual se deseja realizar os lanÃ§amentos. Formato MM
 	public static final String MES = "";
 	
 	@Test
