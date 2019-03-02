@@ -22,7 +22,11 @@ public class WebBrowser {
 	private WebDriver webDriver;
 	
 	private WebBrowser() {
-		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/browserDrivers/chromedriver.exe");
+		if (isLinux()) {
+			System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/browserDrivers/chromedriver");
+		} else {
+			System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/browserDrivers/chromedriver.exe");
+		}
 		
 		webDriver = new ChromeDriver();
 		webDriver.manage().window().maximize();
@@ -143,6 +147,11 @@ public class WebBrowser {
 		if(webBrowser != null && webBrowser.webDriver != null) {
 			webBrowser.webDriver.quit();
 		}
+	}
+	
+	private boolean isLinux() {
+		String os = System.getProperty("os.name").toLowerCase();
+		return (os.indexOf("nix") >= 0 || os.indexOf("nux") >= 0 || os.indexOf("aix") > 0 ); 
 	}
 	
 }

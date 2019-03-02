@@ -11,6 +11,9 @@ import utils.WebBrowser;
 
 public class PaginaRegistrosPonto {
 	
+	private final String horaEntrada = "09:00";
+	private final String horaSaida = "18:00";
+	
 	public PaginaRegistrosPonto() {
 		WebBrowser.waitPageLoad();
 		WebBrowser.switchToTab(1);
@@ -72,7 +75,7 @@ public class PaginaRegistrosPonto {
 
 		List<WebElement> elementosHora =
 				WebBrowser.findElementsWithoutVisibility(By.xpath("//table[@class='table table-header-color-none']/tbody/tr[1]/td[3]/input"));
-		elementosHora.get(1).sendKeys("09:00");
+		elementosHora.get(1).sendKeys(horaEntrada);
 
 		List<WebElement> elementosCombo =
 				WebBrowser.findElementsWithoutVisibility(By.xpath("//table[@class='table table-header-color-none']/tbody/tr[1]/td[5]/select"));
@@ -94,7 +97,7 @@ public class PaginaRegistrosPonto {
 
 		List<WebElement> elementosHora =
 				WebBrowser.findElementsWithoutVisibility(By.xpath("//table[@class='table table-header-color-none']/tbody/tr[2]/td[3]/input"));
-		elementosHora.get(1).sendKeys("18:00");
+		elementosHora.get(1).sendKeys(horaSaida);
 
 		List<WebElement> elementosCombo =
 				WebBrowser.findElementsWithoutVisibility(By.xpath("//table[@class='table table-header-color-none']/tbody/tr[2]/td[5]/select"));
