@@ -11,9 +11,9 @@ import utils.WebBrowser;
 
 public class PaginaRegistrosPonto {
 	
-	private final String horaEntrada = "09:00";
-	private final String horaSaida = "18:00";
-	
+	private final String horaEntrada = "08:12";
+	private final String horaSaida = "18:18";
+	private static final int index= 0;
 	public PaginaRegistrosPonto() {
 		WebBrowser.waitPageLoad();
 		WebBrowser.switchToTab(1);
@@ -66,48 +66,42 @@ public class PaginaRegistrosPonto {
 	}
 	
 	private void lancarHorarioEntrada() {
-		/*
-		Seleciona sempre uma lista de elementos pois o CERTPONTO possui dois elementos mas o primeiro está embaixo de uma DIV escondida
-		 */
 		List<WebElement> elementosInserirLinha =
 				WebBrowser.findElementsWithoutVisibility(By.xpath("//form[@name='frmInsertDisregard']/input[@class='pull-right']"));
-		elementosInserirLinha.get(1).click();
+		elementosInserirLinha.get(index).click();
 
 		List<WebElement> elementosHora =
 				WebBrowser.findElementsWithoutVisibility(By.xpath("//table[@class='table table-header-color-none']/tbody/tr[1]/td[3]/input"));
-		elementosHora.get(1).sendKeys(horaEntrada);
+		elementosHora.get(index).sendKeys(horaEntrada);
 
 		List<WebElement> elementosCombo =
 				WebBrowser.findElementsWithoutVisibility(By.xpath("//table[@class='table table-header-color-none']/tbody/tr[1]/td[5]/select"));
-		Select comboJustificativa = new Select(elementosCombo.get(1));
+		Select comboJustificativa = new Select(elementosCombo.get(index));
 		comboJustificativa.selectByVisibleText("Problemas Relogio");
 
 		List<WebElement> elementosSalvar =
 				WebBrowser.findElementsWithoutVisibility(By.xpath("//table[@class='table table-header-color-none']/tbody/tr[1]/td[7]/input[@title='Salvar']"));
-		elementosSalvar.get(1).click();
+		elementosSalvar.get(index).click();
 	}
 	
 	private void lancarHorarioSaida() {
-		/*
-		Seleciona sempre uma lista de elementos pois o CERTPONTO possui dois elementos mas o primeiro está embaixo de uma DIV escondida
-		 */
 		List<WebElement> elementosInserirLinha =
 				WebBrowser.findElementsWithoutVisibility(By.xpath("//form[@name='frmInsertDisregard']/input[@class='pull-right']"));
-		elementosInserirLinha.get(1).click();
+		elementosInserirLinha.get(index).click();
 
 		List<WebElement> elementosHora =
 				WebBrowser.findElementsWithoutVisibility(By.xpath("//table[@class='table table-header-color-none']/tbody/tr[2]/td[3]/input"));
-		elementosHora.get(1).sendKeys(horaSaida);
+		elementosHora.get(index).sendKeys(horaSaida);
 
 		List<WebElement> elementosCombo =
 				WebBrowser.findElementsWithoutVisibility(By.xpath("//table[@class='table table-header-color-none']/tbody/tr[2]/td[5]/select"));
 
-		Select comboJustificativa = new Select(elementosCombo.get(1));
+		Select comboJustificativa = new Select(elementosCombo.get(index));
 		comboJustificativa.selectByVisibleText("Problemas Relogio");
 
 		List<WebElement> elementosSalvar =
 				WebBrowser.findElementsWithoutVisibility(By.xpath("//table[@class='table table-header-color-none']/tbody/tr[2]/td[7]/input[@title='Salvar']"));
-		elementosSalvar.get(1).click();
+		elementosSalvar.get(index).click();
 	}
 	
 	private void fecharJanelaDia() {
